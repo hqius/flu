@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"flu/shortlink/internal/config"
+	"flu/module/shortlink/internal/config"
 )
 
 func Run() {

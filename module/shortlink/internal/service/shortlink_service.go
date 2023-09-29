@@ -6,8 +6,8 @@ import (
 	"flu/infra/contract"
 	"flu/infra/contract/request"
 	"flu/infra/contract/response"
-	"flu/shortlink/internal/repository/db"
-	"flu/shortlink/internal/repository/idgen"
+	db2 "flu/module/shortlink/internal/repository/db"
+	"flu/module/shortlink/internal/repository/idgen"
 	log "github.com/sirupsen/logrus"
 	"strings"
 )
@@ -28,7 +28,7 @@ func (s *shortLinkService) Gen(req *request.GenReq) *bresp.BaseRespone[*response
 		return bresp.OfErr[*response.GenResp](common.PARAM_ERR, "链接需要以http://或https://开头")
 	}
 	// 查询oLink是否存在，存在就直接报错返回
-	exist, err := db.Slink.OLinkExist(req.OLink)
+	exist, err := db2.Slink.OLinkExist(req.OLink)
 	if err != nil {
 		log.Errorf("[ShortLinkService][Gen], 查询DB失败 req: %+v, err: %+v", req, err)
 		return bresp.OfErr[*response.GenResp](common.INTERNAL_BUSINESS_ERR, "生成短链接失败")
@@ -39,13 +39,13 @@ func (s *shortLinkService) Gen(req *request.GenReq) *bresp.BaseRespone[*response
 	}
 	// oLink存在尝试插入
 	sLink := idgen.NextId()
-	_, err = db.Slink.Insert(sLink, req.OLink)
+	_, err = db2.Slink.Insert(sLink, req.OLink)
 	if err != nil {
-		if db.IsDuplicate(err) {
+		if db2.IsDuplicate(err) {
 			for i := 0; i < 3; i++ {
 				sLink = idgen.NextId()
-				_, err = db.Slink.Insert(sLink, req.OLink)
-				if err == nil || !db.IsDuplicate(err) {
+				_, err = db2.Slink.Insert(sLink, req.OLink)
+				if err == nil || !db2.IsDuplicate(err) {
 					break
 				}
 			}
@@ -69,7 +69,7 @@ func (s *shortLinkService) Query(req *request.QueryReq) *bresp.BaseRespone[*resp
 	}
 	// 先查oLink
 	if req.OLink != "" {
-		sLink, err := db.Slink.GetSLinkByOLink(req.OLink)
+		sLink, err := db2.Slink.GetSLinkByOLink(req.OLink)
 		if err != nil {
 			log.Errorf("[ShortLinkService][Query], 查询DB失败 req: %+v, err: %+v", req, err)
 			return bresp.OfErr[*response.QueryResp](common.INTERNAL_BUSINESS_ERR, "查询失败")
@@ -81,7 +81,7 @@ func (s *shortLinkService) Query(req *request.QueryReq) *bresp.BaseRespone[*resp
 	}
 	// 再查slink
 	if req.SLink != "" {
-		oLink, err := db.Slink.GetOLinkBySLink(req.SLink)
+		oLink, err := db2.Slink.GetOLinkBySLink(req.SLink)
 		if err != nil {
 			log.Errorf("[ShortLinkService][Query], 查询DB失败 req: %+v, err: %+v", req, err)
 			return bresp.OfErr[*response.QueryResp](common.INTERNAL_BUSINESS_ERR, "查询失败")

@@ -4,7 +4,7 @@ import (
 	"flu/infra/contract/request"
 	"flu/infra/contract/response"
 	"flu/infra/http/util"
-	"flu/shortlink/internal/service"
+	"flu/module/shortlink/internal/service"
 	"github.com/gin-gonic/gin"
 )
 

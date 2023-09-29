@@ -3,7 +3,7 @@ package cmd
 import (
 	"flu/infra/config"
 	"flu/infra/http"
-	shortlink "flu/shortlink/cmd"
+	shortlink "flu/module/shortlink/cmd"
 	log "github.com/sirupsen/logrus"
 	"os"
 	"os/signal"

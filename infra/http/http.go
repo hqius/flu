@@ -2,7 +2,7 @@ package http
 
 import (
 	"flu/infra/http/middleware"
-	shortLink "flu/shortlink/interface/http"
+	shortLink "flu/module/shortlink/interface/http"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"

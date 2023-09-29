@@ -2,7 +2,7 @@ package db
 
 import (
 	"database/sql"
-	"flu/shortlink/internal/config"
+	"flu/module/shortlink/internal/config"
 )
 
 type slink struct{}

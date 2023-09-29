@@ -6,4 +6,3 @@ import (
 
 // Slink 短链表
 var Slink *slink
-
