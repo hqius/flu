@@ -1,0 +1,7 @@
+package common
+
+const (
+	DATA_EXIST_ERR = 10001
+	INTERNAL_BUSINESS_ERR
+	PARAM_ERR
+)
