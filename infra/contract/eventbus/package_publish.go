@@ -1,6 +1,8 @@
 package eventbus
 
-import "time"
+import (
+	"time"
+)
 
 type PkType int
 
@@ -29,4 +31,8 @@ type MallPk struct {
 	Id   int
 	Name string
 	Addr string
+}
+
+type PackagePublishService interface {
+	PackagePublish(data *PackagePublish) error
 }
