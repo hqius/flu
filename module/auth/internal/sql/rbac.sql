@@ -1,9 +1,10 @@
 create table role
 (
     id          int primary key auto_increment comment '主键ID',
-    name        varchar(50)  not null comment '角色名',
-    update_time timestamp    not null default current_timestamp on update current_timestamp comment '更新时间',
-    create_time timestamp    not null default current_timestamp comment '创建时间'
+    name        varchar(50) not null comment '角色英文名',
+    cname       varchar(50) not null comment '角色中文名',
+    update_time timestamp   not null default current_timestamp on update current_timestamp comment '更新时间',
+    create_time timestamp   not null default current_timestamp comment '创建时间'
 ) engine InnoDB
   character set utf8mb4
   collate utf8mb4_general_ci
